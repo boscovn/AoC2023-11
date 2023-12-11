@@ -12,6 +12,8 @@ type galaxy struct {
 	posY int
 }
 
+const increment = 1000000
+
 func findMissingNumbers(originalSlice []int, a int) []int {
 	numbersMap := make(map[int]bool)
 	for _, num := range originalSlice {
@@ -33,7 +35,7 @@ func getExpandedX(missing []int, x int) int {
 	toAdd := 0
 	for _, v := range missing {
 		if v < x {
-			toAdd++
+			toAdd += increment - 1
 		}
 	}
 	return toAdd + x
@@ -60,11 +62,13 @@ func main() {
 			}
 		}
 		if noGalaxies {
+			y += increment
+		} else {
 			y++
 		}
-		y++
 	}
 	noX := findMissingNumbers(xPositions, length)
+	fmt.Println(noX)
 	sum := 0
 	visited := 0
 	for k, v := range galaxies {
